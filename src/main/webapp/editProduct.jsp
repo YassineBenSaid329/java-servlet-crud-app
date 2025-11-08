@@ -1,23 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <jsp:include page="navbar.jsp" />
 
-    <div class="container mt-4">
+<jsp:include page="header.jsp">
+    <jsp:param name="title" value="Edit Product" />
+</jsp:include>
+
+<!-- The py-5 class is added here to create vertical padding -->
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 col-lg-7">
         <div class="card">
             <div class="card-header">
-                <h3>Edit Product Information</h3>
+                <h3 class="mb-0">Edit Product Information</h3>
             </div>
             <div class="card-body">
                 <form action="updateProduct" method="post">
-                    <!-- IMPORTANT: Hidden field to send the product ID -->
                     <input type="hidden" name="id" value="<c:out value='${product.id}'/>">
 
                     <div class="mb-3">
@@ -32,12 +28,14 @@
                         <label for="quantite" class="form-label">Quantity</label>
                         <input type="number" class="form-control" id="quantite" name="quantite" value="<c:out value='${product.quantite}'/>" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Product</button>
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="<c:url value='/listProducts'/>" class="btn btn-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<jsp:include page="footer.jsp" />

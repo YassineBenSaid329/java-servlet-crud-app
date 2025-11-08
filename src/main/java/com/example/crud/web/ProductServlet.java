@@ -13,7 +13,6 @@ import com.example.crud.entities.Product;
 
 // Here we map the servlet to a list of specific, distinct URLs.
 @WebServlet(urlPatterns = {
-    "/",
     "/listProducts",
     "/addProduct",
     "/saveProduct",
@@ -103,6 +102,7 @@ public class ProductServlet extends HttpServlet {
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         productDao.deleteProductById(id);
+        request.getSession().setAttribute("successMessage", "Product was successfully deleted!");
         response.sendRedirect(request.getContextPath() + "/listProducts");
     }
 
@@ -112,6 +112,7 @@ public class ProductServlet extends HttpServlet {
         int quantite = Integer.parseInt(request.getParameter("quantite"));
         Product newProduct = new Product(nom, prix, quantite);
         productDao.save(newProduct);
+        request.getSession().setAttribute("successMessage", "Product was successfully added!");
         response.sendRedirect(request.getContextPath() + "/listProducts");
     }
 
@@ -123,6 +124,7 @@ public class ProductServlet extends HttpServlet {
         Product productToUpdate = new Product(nom, prix, quantite);
         productToUpdate.setId(id);
         productDao.update(productToUpdate);
+        request.getSession().setAttribute("successMessage", "Product was successfully updated!");
         response.sendRedirect(request.getContextPath() + "/listProducts");
     }
 }
